@@ -41,10 +41,16 @@ app.use((req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+// Menjalankan server lokal
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server berjalan di http://localhost:${PORT}`);
+  connectDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server berjalan di http://localhost:${PORT}`);
+    });
   });
-});
+}
+
+// Mengekspor aplikasi untuk Vercel
+module.exports = app;
